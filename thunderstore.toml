@@ -1,0 +1,28 @@
+﻿[config]
+schemaVersion = "0.0.1"
+
+[package]
+namespace = "Quest_play"
+name = "MoreDifficulties"
+versionNumber = "0.9.1"
+description = "More Difficulties Mod"
+websiteUrl = "https://github.com/Quest-play/MoreDifficulties"
+containsNsfwContent = false
+
+[package.dependencies]
+BepInEx-BepInExPack_IL2CPP = "6.0.733"
+GatekeeperModding-GKAPI = "0.1.8"
+
+[build]
+icon = "./icon.png"
+readme = "./README.md"
+outdir = "./build"
+
+[[build.copy]]
+source = "./ReleaseOutput"
+target = "./plugins/MoreDifficulties"
+
+[publish]
+repository = "https://thunderstore.io"
+communities = ["gatekeeper"]
+categories = ["mods"]

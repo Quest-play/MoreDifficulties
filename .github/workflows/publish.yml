@@ -1,0 +1,83 @@
+name: Thunderstore Publish
+
+on:
+  release: 
+    types: 
+      - published
+  workflow_dispatch: 
+        
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1
+
+      - name: Setup TCLI
+        run: dotnet tool install --global tcli
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+            
+      # Install Mono on Ubuntu to run nuget.exe (due to this issue on Ubuntu 24 that hasn't been fixed yet - https://github.com/NuGet/setup-nuget/issues/168)
+      - name: Install Mono on Ubuntu
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https dirmngr gnupg ca-certificates
+          sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
+          sudo apt-get update
+          sudo apt-get install -y mono-complete
+          
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          
+      - name: Setup Tools
+        uses: actions/checkout@v4
+        with:
+          repository: GatekeeperModding/Tools
+          path: tools
+
+      - name: Build and Publish
+        run: |
+          IFS='|' read -ra parts <<< "$(python tools/meta-provider/meta.py)"
+          version=${parts[0]}
+          echo "version=${version}"
+          nuget_package_name=${parts[1]}
+          echo "nuget_package_name=${nuget_package_name}"
+          package_name=${parts[2]}
+          echo "package_name=${package_name}"
+          namespace=${parts[3]}
+          echo "namespace=${namespace}"
+
+          is_project_built=false
+          
+          existing_version_number=$(curl --compressed -s "https://thunderstore.io/api/experimental/package/${namespace}/${package_name}/${version}/" | jq '.version_number?' | grep "${version}\"" || true)
+          if [ -z $existing_version_number ]
+          then
+            echo "ts will be pushed"
+
+            if [ "$is_project_built" = false ] ; then
+              dotnet pack --configuration Release /p:PackageOutputPath=./ReleaseOutput /p:OutputPath=./ReleaseOutput
+              is_project_built=true
+            fi
+
+            find . -name '*.pdb' -type f -delete
+            find . -name '*.deps.json' -type f -delete
+          
+            tcli publish --token ${{ secrets.TCLI_AUTH_TOKEN }}
+            rm -rf ./build
+          else
+            echo "ts already exists"
+          fi
+
+          if [ "$is_project_built" = true ] ; then
+            rm -rf ./ReleaseOutput
+          fi
