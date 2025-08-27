@@ -72,7 +72,7 @@ jobs:
             find . -name '*.pdb' -type f -delete
             find . -name '*.deps.json' -type f -delete
           
-            tcli publish --token ${{ secrets.TCLI_AUTH_TOKEN }}
+            tcli publish --token ${{ vars.TCLI_AUTH_TOKEN }}
             rm -rf ./build
           else
             echo "ts already exists"
