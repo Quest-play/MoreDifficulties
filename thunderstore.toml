@@ -4,7 +4,7 @@ schemaVersion = "0.0.1"
 [package]
 namespace = "Quest_play"
 name = "MoreDifficulties"
-versionNumber = "0.1.0"
+versionNumber = "0.2.0"
 description = "More Difficulties Mod"
 websiteUrl = "https://github.com/Quest-play/MoreDifficulties"
 containsNsfwContent = false

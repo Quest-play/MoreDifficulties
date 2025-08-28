@@ -1,6 +1,8 @@
 # More Difficulties
 The mod is made using the [ExampleMod](https://github.com/GatekeeperModding/ExampleMod) template and [GKAPI](https://github.com/Robocraft999/GKAPI) (Gatekeeper Modding API).
 
+# !!WARNING!!
+This mod is not recommended for beginners. For a fairer game, it is advisable to unlock all items.
 
 ## Current Content
 
@@ -8,6 +10,9 @@ The mod is made using the [ExampleMod](https://github.com/GatekeeperModding/Exam
 
 - 400% - ``Insanity``
 
+### Enemies Templates
+
+- Custom enemy template for 400%
 
 ## Planned
 
@@ -19,4 +24,4 @@ The mod is made using the [ExampleMod](https://github.com/GatekeeperModding/Exam
 
 ### Enemies Templates
 
-Custom templates for each difficulty. 400% -1000%
+Custom templates for each difficulty. 600% - 1000%

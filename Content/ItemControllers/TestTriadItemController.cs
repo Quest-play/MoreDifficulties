@@ -2,7 +2,7 @@
 using Gatekeeper.General.Events.Characters;
 using GKAPI.Items;
 
-namespace ExampleMod.Content.ItemControllers;
+namespace MoreDifficulties.Content.ItemControllers;
 
 public class TestTriadItemController : CustomItemController
 {
