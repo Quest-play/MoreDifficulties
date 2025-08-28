@@ -5,7 +5,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <AssemblyName>MoreDifficulties</AssemblyName>
         <Product>MoreDifficulties</Product>
-        <Version>0.1.0</Version>
+        <Version>0.2.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
         <RestoreAdditionalProjectSources>
