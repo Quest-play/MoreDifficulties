@@ -27,15 +27,6 @@ public class Plugin : GkPlugin
 
     public override void AddContent()
     {
-        if (EventHandler.State != EventHandler.LoadingState.PreInit)
-        {
-            Log.LogError("Content has to be added during Pre-Init!");
-            return;
-        }
-
-        GlobalSettings.Instance.buildCheating = true;
-        GlobalSettings.Instance.buildDebugConsole = true;
-
         var diffAPI = DifficultiesAPI.Instance;
         var enemiesAPI = EnemiesAPI.Instance;
 

@@ -3,10 +3,10 @@
         <Reference Include="GKAPI" Condition=" '$(IsDevEnv)'=='true' ">
             <HintPath>..\GKAPI\bin\Debug\net6.0\GKAPI.dll</HintPath>
         </Reference>
-        <PackageReference Include="GKAPI" Version="0.1.8" Condition=" '$(IsDevEnv)'=='' "/>
+        <PackageReference Include="GKAPI" Version="0.1.9" Condition=" '$(IsDevEnv)'=='' "/>
         
         <PackageReference Include="BepInEx.Analyzers" Version="1.0.8" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
         <PackageReference Include="UnityEngine.Modules" Version="2022.3.55"/>
-        <PackageReference Include="Gatekeeper.GameLibs.Steam" Version="1.0.0.5" />
+        <PackageReference Include="Gatekeeper.GameLibs.Steam" Version="1.0.0.10" />
     </ItemGroup>
 </Project>
